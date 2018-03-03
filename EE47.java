@@ -1,65 +1,65 @@
 import java.util.Random;
+import java.util.Scanner;
 import java.lang.Math;
 
 public class EE47 {
-	public static int[] QuizCreation (){
-		int[] tab;
+	public static int[] res1 = new int[10]; 
+    public static int[] res2 = new int[10]; 
+    public static int[] res3 = new int[10];   
+    public static int[] tab = new int[20]; 
+	/**
+	 * cree deux tableaux res1 et res2 avec les nombres des additions du quiz
+	 */
+	public static void QuizCreation (){
 		int i;
-		for(i=1;i<=20;i++){
-			tab[i]=(int) ((Math.random())*100);
+		for(i=0;i<10;i++){
+			res1[i]=(int) ((Math.random())*50);
 		}
-		return tab;
+		for(i=0;i<10;i++){
+			res2[i]=(int) ((Math.random())*50);
+		}
 	}
 	
-	public static int[] PrintQuiz(int[] res1,int[] res2){
-		int[] res3;
+	/**
+	 * affiche le quiz et stocke la reponse de l'utilisateur dans res3
+	 */
+	public static void PrintQuiz(){
+		Scanner sc = new Scanner(System.in);
         for (int i = 0; i < 10; i++) {
-            System.out.printf("%2d + %2d = ? ", res1[i], res2[i]);
-            res3[i] = TextIO.getlnInt();
+            System.out.println(res1[i]+"+"+res2[i]+"=?");
+    		String str = sc.nextLine();
+    		res3[i] = Integer.parseInt(str);
         }
-        return res3;
+        sc.close();
     }
 	
-	
-	private static void GradeQuiz(int[] res1, int[] res2, int[] res3) {
-			
-	        int NbCorrect = 0;
-	        int grade;
+	/**
+	 * affiche chaque addition du quiz et la bonne reponse et dit a l'utilisateur s'il a eu juste ou non, affiche la note de l'utilisateur
+	 */
+	private static void GradeQuiz() {
+	        int Nbbr= 0;
+	        int note=0;
 	        for (int i = 0; i < 10; i++) {
-	            System.out.printf("%2d + %2d  =  %2d ", res1[i], res2[i], res1[i]+res2[i]);
+	            System.out.println(res1[i]+"+"+res2[i]+"="+(res1[i]+res2[i]));
 	            if ( res3[i] == res1[i]+res2[i] ) {
-	                System.out.println("CORRECT");
-	                NbCorrect++;
+	                System.out.println("Bonne réponse");
+	                Nbbr++;
 	            }
 	            else {
-	                System.out.println("Your answer was " + res3[i] + ",INCORRECT");
+	                System.out.println("mauvaise réponse, votre réponse était " + res3[i]);
 	            }
 	        }
-	        grade = NbCorrect * 10;
-	        System.out.println();
-	        System.out.println("Your grade is " + grade);
+	        note = Nbbr * 10;
+	        System.out.println("Note :"+note);
 	    }
 	
 	
 	  
     public static void main(String[] args) {
-        int[] res1 = new int[10]; 
-        int[] res2 = new int[10]; 
-        int[] res3 = new int[10];   
-        int[] tab = new int[20];   
-        tab=QuizCreation();
-        tab=QuizCreation();
-		int i=0;
-		for(i=0;i<=19;i++){
-			if(i<=9){
-				res1[i]=tab[i];
-			}
-			if((i>9)&&(i<20)){
-				res1[i-10]=tab[i];
-			}
-		}
-        res3=PrintQuiz(res1,res2);
-        GradeQuiz(res1,res2,res3);
+          
+        QuizCreation();
+        PrintQuiz();
+        GradeQuiz();
     }
 	
 	
